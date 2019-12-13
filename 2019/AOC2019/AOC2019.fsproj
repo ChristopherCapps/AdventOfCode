@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="AOC01.fs" />
+    <Compile Include="AOC02.fs" />
+    <Compile Include="AOC03.fs" />
+    <Compile Include="AOC04.fs" />
+    <Compile Include="AOC05.fs" />
+    <Compile Include="AOC06.fs" />
+    <Compile Include="AOC07.fs" />
+    <Compile Include="AOC08.fs" />
+    <Compile Include="AOC10.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+</Project>
