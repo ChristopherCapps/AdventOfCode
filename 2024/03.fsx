@@ -2,7 +2,7 @@ let input = System.IO.File.ReadAllLines "03.input"
 
 let lines = input
 
-let parse_digits (s: string) =
+let consume_digits (s: string) =
     let rec parse_digits_rec (s': char list) (acc: char list) =
         //printfn "Input: %O, Acc: %O" s' acc
         match s' with
@@ -12,5 +12,14 @@ let parse_digits (s: string) =
     //printfn "Result: %O" result
     match result with
     | [] -> None
-    | _ as digits -> (string digits) |> int |> Some
+    | _ as digits -> (System.String (Array.ofList digits)) |> int |> Some
+
+let consume_mul (s: string) =
+    s.Length >= 4 && s.Substring(0, 4).Equals("mul(")
+
+let consume_comma (s: string) =
+    s.Length >= 1 && s.[0] = ','
+
+let consume_close_parenthesis (s:string) =
+    s.Length >= 1 && s.[0] = ')'
 
