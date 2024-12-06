@@ -49,17 +49,39 @@ let found_in_direction (location: Location) (word: string) (offset: Offset) =
         (Some location)
     |> Option.isSome
 
-let mutable count = 0
+// Part 1
+// let mutable count = 0
+
+// for col in [0..(max_columns-1)] do
+//     printfn "Column: %d, Count: %d" col count
+//     for row in [0..(max_rows-1)] do
+//         let location = (col, row)
+//         count <- count + 
+//             (offsets
+//             |> List.fold (fun count offset ->
+//                 if (found_in_direction location "XMAS" offset) then 
+//                     printfn "Found in direction %O from location %O" offset location
+//                     (count+1) else count) 0)
+
+// count
+
+// Part 2
+let offsets' = [diagonal_down_left; diagonal_down_right; diagonal_up_left; diagonal_up_right]
+
+let mutable (centers: Location list) = []
 
 for col in [0..(max_columns-1)] do
-    printfn "Column: %d, Count: %d" col count
     for row in [0..(max_rows-1)] do
         let location = (col, row)
-        count <- count + 
-            (offsets
-            |> List.fold (fun count offset ->
-                if (found_in_direction location "XMAS" offset) then 
+        centers <- centers @ 
+            (offsets'
+            |> List.fold (fun centers offset ->
+                if (found_in_direction location "MAS" offset) then 
+                    let center = traverse offset location
                     printfn "Found in direction %O from location %O" offset location
-                    (count+1) else count) 0)
+                    centers @ [center] else centers) [])
 
-count
+centers
+|> List.countBy id
+|> List.filter (fun (_, count) -> count = 2)
+|> List.length
