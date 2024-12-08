@@ -1,4 +1,4 @@
-let input = System.IO.File.ReadAllLines "05.input"
+let input = System.IO.File.ReadAllLines "2024/05.input"
 
 let lines = input
 
@@ -64,10 +64,12 @@ let reorder_pages (rules: PageOrderRule list) (pages: int list) =
         let violations =
             rules
             |> List.collect (fun (PageOrderRule(before, after)) ->
-                let beforeIndex = pages |> List.findIndex ((=) before)
-                let afterIndex = pages |> List.findIndex ((=) after)
-                if beforeIndex < afterIndex then [] 
-                else [(beforeIndex, afterIndex)]
+                match pages |> List.tryFindIndex ((=) before) with
+                | Some beforeIndex ->
+                    match pages |> List.tryFindIndex ((=) after) with                    
+                    | Some afterIndex when beforeIndex > afterIndex -> [(beforeIndex, afterIndex)]
+                    | _ -> []
+                | None -> []
             )
             
         match violations with
